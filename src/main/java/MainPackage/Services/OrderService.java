@@ -19,9 +19,6 @@ public class OrderService {
     private PositionRepository positionRepository;
 
     @Autowired
-    private ProductTypeRepository productTypeRepository;
-
-    @Autowired
     private ProductRepository productRepository;
 
     @Autowired
@@ -39,20 +36,6 @@ public class OrderService {
         Position position = positionRepository.findByOrderNumber(orderNumber);
         position.getProducts().forEach(product -> product.setPosition(null));
         return new OrderDetailsTO(position.getProducts(), position.getStand().getTableNumber(), position.getRemark(),position.getWaiter().getId(), position.isPaid());
-    }
-
-    public Collection<?> getProductTypes() {
-        return (Collection<?>) productTypeRepository.findAll();
-    }
-
-    public Collection<?> getProducts(String name) {
-        ProductType productType = productTypeRepository.findByName(name);
-        Collection<Product> products = productRepository.findByProductType(productType);
-        Collection<ProductTO> result = new ArrayList<>();
-        products.forEach(p -> {
-            result.add(new ProductTO(p.getProductId(), p.getPrice(), p.getName()));
-        });
-        return result;
     }
 
     public Collection<?> newOrder(OrderDetailsTO orderDetailsTO) {
@@ -96,7 +79,7 @@ public class OrderService {
 
         productRepository.findAll().forEach(products::add);
         products.forEach(p -> {
-            result.add(new ProductTO(p.getProductId(), p.getPrice(), p.getName()));
+            result.add(new ProductTO(p.getProductId(), p.getPrice(), p.getName(), p.getProductType()));
         });
         return result;
     }

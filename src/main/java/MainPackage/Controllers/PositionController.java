@@ -24,16 +24,6 @@ public class PositionController {
         return new ResponseEntity<>(orderService.getOrderDetails(orderNumber), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/product/type")
-    public ResponseEntity<?> getProductTypes(){
-        return new ResponseEntity<>(orderService.getProductTypes(), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/products")
-    public ResponseEntity<?> getProducts(@RequestParam("name")String name){
-        return new ResponseEntity<>(orderService.getProducts(name), HttpStatus.OK);
-    }
-
     @GetMapping(value = "/allproducts")
     public ResponseEntity<?> getAllProducts(){
         return new ResponseEntity<>(orderService.getAllProducts(), HttpStatus.OK);

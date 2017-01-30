@@ -1,5 +1,6 @@
 package MainPackage.Entities;
 
+import MainPackage.Enums.ProductType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,8 +19,6 @@ public class Product {
 
     private String name;
     private Double price;
-
-    @OneToOne
     private ProductType productType;
 
     @ManyToOne(fetch = FetchType.LAZY)
